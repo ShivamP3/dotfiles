@@ -1,0 +1,8 @@
+ignore-empty-password
+show-failed-attempts
+daemonize
+image=~/dotfiles/wallpapers/sea.jpg
+scaling=fill
+indicator-caps-lock
+indicator-radius=75
+font=Iosevka
