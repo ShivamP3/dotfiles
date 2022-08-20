@@ -2,9 +2,9 @@
 	"layer": "top",
         "position": "bottom", // Waybar position (top|bottom|left|right)
         "height": 25,
-	"modules-left": ["custom/launcher","cpu","temperature","memory","disk","network","custom/keyboard-layout","custom/updates","tray","sway/mode"],
+	"modules-left": ["custom/launcher","cpu","temperature","memory","disk","network","custom/updates","tray","sway/mode"],
 	"modules-center": ["sway/workspaces"],
-	"modules-right": ["custom/weather","pulseaudio","clock","custom/power"],
+	"modules-right": ["custom/keyboard-layout","custom/weather","pulseaudio","clock","custom/power"],
 
         "pulseaudio": {
 		"tooltip": false,
