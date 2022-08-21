@@ -29,6 +29,7 @@ SETUVAR _fish_abbr_cc:cargo\x20check
 SETUVAR _fish_abbr_ccl:cargo\x20clippy
 SETUVAR _fish_abbr_cf:cargo\x20fmt
 SETUVAR _fish_abbr_cl:clear
+SETUVAR _fish_abbr_clc:clear\x3b\x20clock
 SETUVAR _fish_abbr_clf:clear\x3b\x20neofetch
 SETUVAR _fish_abbr_clg:clear\x3b\x20fish_greeting
 SETUVAR _fish_abbr_clt:clear\x3b\x20todo
