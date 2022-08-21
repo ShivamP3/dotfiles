@@ -277,4 +277,9 @@ bar {
      swaybar_command waybar
  }
 
+# Clipman
+exec wl-paste -t text --watch clipman store --no-persist
+bindsym $mod+Alt+d exec clipman pick -t wofi
+
+
 include /etc/sway/config.d/*
