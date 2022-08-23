@@ -1,9 +1,9 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export CARGO_DIR:/home/rejyr/\x2ecargo/
+SETUVAR --export CARGO_DIR:/home/shivam/\x2ecargo/
 SETUVAR --export CC:gcc
 SETUVAR --export CFLAGS:\x2dfsanitize\x3dsigned\x2dinteger\x2doverflow\x1e\x2dfsanitize\x3dundefined\x1e\x2dggdb3\x1e\x2dO0\x1e\x2dstd\x3dc11\x1e\x2dWall\x1e\x2dWerror\x1e\x2dWextra\x1e\x2dWno\x2dsign\x2dcompare\x1e\x2dWno\x2dunused\x2dparameter\x1e\x2dWno\x2dunused\x2dvariable\x1e\x2dWshadow
-SETUVAR --export DOTFILES:/home/rejyr/dotfiles/
+SETUVAR --export DOTFILES:/home/shivam/dotfiles/
 SETUVAR --export EDITOR:nvim
 SETUVAR FZF_DEFAULT_OPTS:\x2d\x2dheight\x2040\x25
 SETUVAR FZF_DISABLE_KEYBINDINGS:0
