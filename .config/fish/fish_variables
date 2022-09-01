@@ -5,6 +5,12 @@ SETUVAR --export CC:gcc
 SETUVAR --export CFLAGS:\x2dfsanitize\x3dsigned\x2dinteger\x2doverflow\x1e\x2dfsanitize\x3dundefined\x1e\x2dggdb3\x1e\x2dO0\x1e\x2dstd\x3dc11\x1e\x2dWall\x1e\x2dWerror\x1e\x2dWextra\x1e\x2dWno\x2dsign\x2dcompare\x1e\x2dWno\x2dunused\x2dparameter\x1e\x2dWno\x2dunused\x2dvariable\x1e\x2dWshadow
 SETUVAR --export DOTFILES:/home/shivam/dotfiles/
 SETUVAR --export EDITOR:nvim
+SETUVAR FZF_DEFAULT_OPTS:\x2d\x2dheight\x2040\x25
+SETUVAR FZF_DISABLE_KEYBINDINGS:0
+SETUVAR FZF_LEGACY_KEYBINDINGS:1
+SETUVAR FZF_PREVIEW_DIR_CMD:ls
+SETUVAR FZF_PREVIEW_FILE_CMD:head\x20\x2dn\x2010
+SETUVAR FZF_TMUX_HEIGHT:40\x25
 SETUVAR --export GRIM_DEFAULT_DIR:/home/shivam/Pictures/
 SETUVAR --export LDLIBS:\x2dlcrypt\x1e\x2dlcs50\x1e\x2dlm
 SETUVAR --export --path PATH:/home/shivam/Programming/RustProjects/todo/target/debug\x1e/home/shivam/\x2ecargo/bin\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl
@@ -71,7 +77,7 @@ SETUVAR _fish_abbr_xti:x\x20tidy
 SETUVAR _fish_abbr_xtidy:x\x20test\x20tidy
 SETUVAR _fish_abbr_yeet:yay\x20\x2dRsn
 SETUVAR _fish_abbr_yoink:yay\x20\x2dS
-SETUVAR _fisher_PatrickF1_2F_fzf_2E_fish_files:/home/shivam/\x2econfig/fish/functions/_fzf_configure_bindings_help\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_extract_var_info\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_preview_file\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_report_file_type\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_directory\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_git_log\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_git_status\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_history\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_processes\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_variables\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_wrapper\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fzf_configure_bindings\x2efish\x1e/home/shivam/\x2econfig/fish/conf\x2ed/fzf\x2efish\x1e/home/shivam/\x2econfig/fish/completions/fzf_configure_bindings\x2efish
+SETUVAR _fisher_PatrickF1_2F_fzf_2E_fish_files:/home/shivam/\x2econfig/fish/functions/_fzf_configure_bindings_help\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_extract_var_info\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_preview_changed_file\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_preview_file\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_report_diff_type\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_report_file_type\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_directory\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_git_log\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_git_status\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_history\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_processes\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_search_variables\x2efish\x1e/home/shivam/\x2econfig/fish/functions/_fzf_wrapper\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fzf_configure_bindings\x2efish\x1e/home/shivam/\x2econfig/fish/conf\x2ed/fzf\x2efish\x1e/home/shivam/\x2econfig/fish/completions/fzf_configure_bindings\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/shivam/\x2econfig/fish/functions/fisher\x2efish\x1e/home/shivam/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_oh_2D_my_2D_fish_2F_plugin_2D_extract_files:/home/shivam/\x2econfig/fish/functions/extract\x2efish
 SETUVAR _fisher_oh_2D_my_2D_fish_2F_theme_2D_bobthefish_files:/home/shivam/\x2econfig/fish/functions/__bobthefish_colors\x2efish\x1e/home/shivam/\x2econfig/fish/functions/__bobthefish_display_colors\x2efish\x1e/home/shivam/\x2econfig/fish/functions/__bobthefish_glyphs\x2efish\x1e/home/shivam/\x2econfig/fish/functions/bobthefish_display_colors\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fish_greeting\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fish_prompt\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fish_right_prompt\x2efish\x1e/home/shivam/\x2econfig/fish/functions/fish_title\x2efish
