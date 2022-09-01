@@ -6,6 +6,7 @@ autoconf
 automake
 bacon
 base
+bat
 bc
 bemenu
 bison
@@ -23,6 +24,7 @@ dunst
 efibootmgr
 exa
 fakeroot
+fd
 fish
 flex
 fzf
