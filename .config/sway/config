@@ -78,9 +78,32 @@ exec swayidle -w \
 #       natural_scroll enabled
 #       middle_emulation enabled
 #   }
-#
+# disable mouse acceleration
+input * accel_profile flat
+
+# keyboard layout
+include "$HOME/.config/sway/keyboard-layout"
+
+# touchpad settings
+input type:touchpad {
+    tap enabled
+    middle_emulation disabled
+}
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+
+# Enable floating
+for_window [title="Plover: Strokes Meter"] floating enable
+for_window [title="Plover: WPM Meter"] floating enable
+
+# Enable title bar
+for_window [title="Plover: Strokes Meter"] border normal
+for_window [title="Plover: WPM Meter"] border normal
+
+# Resize
+for_window [title="Plover: Strokes Meter"] width 181 height 148
+for_window [title="Plover: WPM Meter"] width 181 height 148
 
 ### Key bindings
 #
