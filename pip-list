@@ -49,6 +49,7 @@ pbr==5.10.0
 pep517==0.12.0
 pexpect==4.8.0
 platformdirs==2.5.2
+plover==4.0.0.dev12
 plover-stroke==1.1.0
 pluggy==1.0.0
 ply==3.11
