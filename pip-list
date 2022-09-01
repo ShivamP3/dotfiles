@@ -1,6 +1,6 @@
 apipkg==3.0.1
 appdirs==1.4.4
-attrs==22.1.0
+attrs==20.3.0
 autocommand==2.2.1
 autopep8==1.6.0
 Babel==2.10.3
