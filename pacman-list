@@ -63,7 +63,6 @@ python-babel
 python-magic
 python-pip
 python2
-rsync
 rust-analyzer
 sl
 slurp
@@ -128,6 +127,5 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
-xxhash
 zellij
 zoxide
