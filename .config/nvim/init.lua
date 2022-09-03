@@ -24,7 +24,7 @@ vim.g.maplocalleader = ' '
 
 -- color setup
 vim.cmd [[colorscheme kanagawa]]
-
+vim.cmd [[set background=dark]]
 --
 -- LSP/Rust setup
 --
