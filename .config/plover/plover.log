@@ -1,1 +1,22 @@
 
+2022-09-05 12:53:27,277 [MainThread] INFO: setting language to: en_US.UTF-8
+2022-09-05 12:53:27,333 [MainThread] INFO: 38 custom mappings(s)
+2022-09-05 12:53:27,787 [Dummy-1] INFO: set_stroke_filename(/home/shivam/.config/plover/strokes.log)
+2022-09-05 12:53:27,787 [Dummy-1] INFO: loading system: English Stenotype
+2022-09-05 12:53:27,974 [Dummy-1] INFO: setting machine: Gemini PR
+2022-09-05 12:53:27,975 [Dummy-1] INFO: starting `plover_tapey_tape` extension
+2022-09-05 12:53:27,976 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/user.json
+2022-09-05 12:53:27,976 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/movement.json
+2022-09-05 12:53:27,976 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/emily-modifiers.py
+2022-09-05 12:53:27,976 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/emily-symbols.py
+2022-09-05 12:53:27,977 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/commands.json
+2022-09-05 12:53:27,977 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/main.json
+2022-09-05 12:53:28,336 [Dummy-1] INFO: loaded 6 dictionaries in 0.360s
+2022-09-05 12:53:28,336 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-modifiers.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-09-05 12:53:28,336 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-symbols.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-09-05 13:28:58,509 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-09-05 13:28:59,594 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-09-05 13:35:11,214 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-09-05 13:35:17,381 [Dummy-1] INFO: setting machine: Gemini PR
+2022-09-05 13:35:17,382 [Dummy-1] INFO: starting `plover_tapey_tape` extension
+2022-09-05 13:35:17,382 [Dummy-1] INFO: loaded 6 dictionaries in 0.000s
