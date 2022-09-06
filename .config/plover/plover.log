@@ -20,3 +20,4 @@
 2022-09-05 13:35:17,381 [Dummy-1] INFO: setting machine: Gemini PR
 2022-09-05 13:35:17,382 [Dummy-1] INFO: starting `plover_tapey_tape` extension
 2022-09-05 13:35:17,382 [Dummy-1] INFO: loaded 6 dictionaries in 0.000s
+2022-09-05 23:42:50,643 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()

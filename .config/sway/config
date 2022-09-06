@@ -94,16 +94,13 @@ input type:touchpad {
 # Read `man 5 sway-input` for more information about this section.
 
 # Enable floating
-for_window [title="Plover: Strokes Meter"] floating enable
-for_window [title="Plover: WPM Meter"] floating enable
+for_window [title="Plover"] floating enable
 
 # Enable title bar
-for_window [title="Plover: Strokes Meter"] border normal
-for_window [title="Plover: WPM Meter"] border normal
+for_window [title="Plover"] border normal
 
 # Resize
-for_window [title="Plover: Strokes Meter"] width 181 height 148
-for_window [title="Plover: WPM Meter"] width 181 height 148
+for_window [title="Plover"] width 181 height 148
 
 ### Key bindings
 #
