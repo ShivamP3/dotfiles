@@ -1,6 +1,6 @@
 apipkg==3.0.1
 appdirs==1.4.4
-attrs==20.3.0
+attrs==22.1.0
 autocommand==2.2.1
 autopep8==1.6.0
 Babel==2.10.3
@@ -14,7 +14,7 @@ check50==3.3.6
 colorama==0.4.5
 commonmark==0.9.1
 contextlib2==21.6.0
-cryptography==37.0.4
+cryptography==38.0.0
 Cython==0.29.32
 distlib==0.3.6
 distro==1.7.0
