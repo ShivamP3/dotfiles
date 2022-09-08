@@ -1,6 +1,6 @@
 apipkg==3.0.1
 appdirs==1.4.4
-attrs==20.3.0
+attrs==22.1.0
 autocommand==2.2.1
 autopep8==1.6.0
 Babel==2.10.3
@@ -58,7 +58,7 @@ ptyprocess==0.7.0
 py==1.11.0
 pycodestyle==2.8.0
 pycparser==2.21
-pydantic==1.10.1
+pydantic==1.10.2
 Pygments==2.13.0
 PyNaCl==1.4.0
 pyOpenSSL==22.0.0
