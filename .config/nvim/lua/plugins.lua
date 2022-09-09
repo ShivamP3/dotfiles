@@ -72,6 +72,39 @@ return require('packer').startup(function(use)
         end,
     }
 
+    -- prettier notifications
+    use {
+        'rcarriga/nvim-notify',
+        config = function()
+            vim.notify = require 'notify'
+        end,
+    }
+
+    -- lsp status
+    use {
+        'j-hui/fidget.nvim',
+        config = function()
+            require('fidget').setup {}
+        end,
+    }
+
+    -- fold code
+    use {
+        'kevinhwang91/nvim-ufo',
+        requires = 'kevinhwang91/promise-async',
+        config = function()
+            vim.wo.foldcolumn = '1'
+            vim.wo.foldlevel = 99 -- feel free to decrease the value
+            vim.wo.foldenable = true
+
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities.textDocument.foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            }
+        end,
+    }
+
     -- fancy wildmenu
     use {
         'gelguy/wilder.nvim',
@@ -310,10 +343,10 @@ return require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
 
     -- colorschemes
-    use 'RRethy/nvim-base16'
+    -- use 'RRethy/nvim-base16'
+    -- use 'folke/tokyonight.nvim'
     use 'rebelot/kanagawa.nvim'
-    use 'tanvirtin/monokai.nvim'
-    use 'catppuccin/nvim'
+    -- use 'catppuccin/nvim'
 
     --
     --
@@ -322,9 +355,9 @@ return require('packer').startup(function(use)
     --
     -- smooth scrolling
     use {
-        'karb94/neoscroll.nvim',
+        'declancm/cinnamon.nvim',
         config = function()
-            require('neoscroll').setup()
+            require('cinnamon').setup()
         end,
     }
 
@@ -418,6 +451,59 @@ return require('packer').startup(function(use)
 
     -- browser markdown preview
     use 'davidgranstrom/nvim-markdown-preview'
+
+    -- latex preview
+    use {
+        'frabjous/knap',
+        config = function()
+            -- set shorter name for keymap function
+            local kmap = vim.keymap.set
+
+            -- F5 processes the document once, and refreshes the view
+            kmap('i', '<F5>', function()
+                require('knap').process_once()
+            end)
+            kmap('v', '<F5>', function()
+                require('knap').process_once()
+            end)
+            kmap('n', '<F5>', function()
+                require('knap').process_once()
+            end)
+
+            -- F6 closes the viewer application, and allows settings to be reset
+            kmap('i', '<F6>', function()
+                require('knap').close_viewer()
+            end)
+            kmap('v', '<F6>', function()
+                require('knap').close_viewer()
+            end)
+            kmap('n', '<F6>', function()
+                require('knap').close_viewer()
+            end)
+
+            -- F7 toggles the auto-processing on and off
+            kmap('i', '<F7>', function()
+                require('knap').toggle_autopreviewing()
+            end)
+            kmap('v', '<F7>', function()
+                require('knap').toggle_autopreviewing()
+            end)
+            kmap('n', '<F7>', function()
+                require('knap').toggle_autopreviewing()
+            end)
+
+            -- F8 invokes a SyncTeX forward search, or similar, where appropriate
+            kmap('i', '<F8>', function()
+                require('knap').forward_jump()
+            end)
+            kmap('v', '<F8>', function()
+                require('knap').forward_jump()
+            end)
+            kmap('n', '<F8>', function()
+                require('knap').forward_jump()
+            end)
+        end,
+    }
 
     -- latex editing
     use {
@@ -576,7 +662,6 @@ return require('packer').startup(function(use)
         },
         config = function()
             require('telescope').load_extension 'dap'
-            require('dapui').setup()
 
             local dap = require 'dap'
 
@@ -697,15 +782,16 @@ return require('packer').startup(function(use)
             end, { silent = true })
         end,
     }
-    --
+
     use {
-        "nvim-neotest/neotest",
+        'nvim-neotest/neotest',
         requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "antoinemadec/FixCursorHold.nvim"
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
+            'antoinemadec/FixCursorHold.nvim',
+        },
     }
-}
+
     --
     --
     -- lsp/language
@@ -724,7 +810,7 @@ return require('packer').startup(function(use)
         'folke/trouble.nvim',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
-            vim.keymap.set('n', '<leader>t', '<cmd>TroubleToggle<cr>', { silent = true })
+            vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', { silent = true })
             require('trouble').setup()
         end,
     }
@@ -753,32 +839,67 @@ return require('packer').startup(function(use)
         'williamboman/nvim-lsp-installer',
         requires = { 'neovim/nvim-lspconfig' },
         config = function()
+            require('nvim-lsp-installer').setup {}
             local lsp_installer = require 'nvim-lsp-installer'
-            lsp_installer.on_server_ready(function(server)
-                local servers = {
-                    'clangd',
-                    'cssls',
-                    'grammarly',
-                    'ltex',
-                    'pyright',
-                    'sumneko_lua',
-                    'zeta_note',
-                }
+            local servers = {
+                'clangd',
+                'cssls',
+                'grammarly',
+                'html',
+                'ltex',
+                'pyright',
+                'rust_analyzer',
+                'sumneko_lua',
+                'tailwindcss',
+            }
 
-                -- install servers
-                for _, name in pairs(servers) do
-                    local server_is_found, server = lsp_installer.get_server(name)
-                    if server_is_found then
-                        if not server:is_installed() then
-                            print('Installing ' .. name)
-                            server:install()
-                        end
+            -- install servers
+            for _, name in pairs(servers) do
+                local server_is_found, server = lsp_installer.get_server(name)
+                if server_is_found then
+                    if not server:is_installed() then
+                        print('Installing ' .. name)
+                        server:install()
+                        print('Installed ' .. name)
                     end
                 end
+            end
 
-                local opts = {}
-                server:setup(opts)
-            end)
+            local lspconfig = require 'lspconfig'
+            lspconfig.clangd.setup {}
+            lspconfig.cssls.setup {}
+            lspconfig.grammarly.setup {}
+            lspconfig.html.setup {}
+            lspconfig.ltex.setup {}
+            lspconfig.pyright.setup {}
+            lspconfig.sumneko_lua.setup {}
+            lspconfig.tailwindcss.setup {}
+            lspconfig.rust_analyzer.setup {
+                on_init = function(client)
+                    local path = client.workspace_folders[1].name
+
+                    if path == os.getenv 'HOME' .. 'rust' then
+                        local rust_analyzer = client.config.settings['rust-analyzer']
+                        rust_analyzer.checkOnSave.overrideCommand = { 'x', 'check', '--json-output' }
+                        rust_analyzer.rustfmt.overrideCommand =
+                            { './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt', '--edition=2021' }
+                        rust_analyzer.procMacro.enable = true
+                        rust_analyzer.cargo.buildScripts.enable = true
+                        rust_analyzer.cargo.buildScripts.overrideCommand = { 'x', 'check', '--json-output' }
+                        rust_analyzer.rustc.source = './Cargo.toml'
+                    end
+
+                    client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+                    return true
+                end,
+                settings = {
+                    checkOnSave = { overrideCommand = {} },
+                    rustfmt = { overrideCommand = {} },
+                    procMacro = { enable = false },
+                    cargo = { buildScripts = { enable = false, overrideCommand = {} } },
+                    rustc = { source = '' },
+                },
+            }
         end,
     }
 
@@ -797,8 +918,8 @@ return require('packer').startup(function(use)
             vim.keymap.set('n', 'gW', vim.lsp.buf.workspace_symbol, { silent = true })
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { silent = true })
             vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { silent = true })
-            vim.keymap.set('n', 'g[', vim.lsp.diagnostic.goto_prev, { silent = true })
-            vim.keymap.set('n', 'g]', vim.lsp.diagnostic.goto_next, { silent = true })
+            vim.keymap.set('n', 'g[', vim.diagnostic.goto_prev, { silent = true })
+            vim.keymap.set('n', 'g]', vim.diagnostic.goto_next, { silent = true })
         end,
     }
 
