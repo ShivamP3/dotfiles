@@ -510,7 +510,7 @@ return require('packer').startup(function(use)
         'lervag/vimtex',
         config = function()
             vim.api.nvim_set_var('tex_flavor', 'latex')
-            vim.api.nvim_set_var('vimtex_view_method', 'zathura')
+            vim.api.nvim_set_var('vimtex_view_method', 'sioyek')
             vim.api.nvim_set_var('vimtex_quickfix_mode', 0)
             vim.o.conceallevel = 1
             vim.api.nvim_set_var('tex_conceal', 'abdmg')
