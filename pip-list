@@ -14,7 +14,7 @@ check50==3.3.6
 colorama==0.4.5
 commonmark==0.9.1
 contextlib2==21.6.0
-cryptography==38.0.0
+cryptography==38.0.1
 Cython==0.29.32
 distlib==0.3.6
 distro==1.7.0
