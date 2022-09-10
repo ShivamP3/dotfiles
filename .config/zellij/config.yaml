@@ -499,8 +499,20 @@ default_shell: fish
 # Choose the theme that is specified in the themes section.
 # For some examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
 # Default: default
-theme: tokyo-night
+theme: nord
 themes:
+  nord:
+    fg: [136, 192, 208] #88C0D0
+    bg: [40, 42, 54] #282a36
+    black: [40, 42, 54] #282a36
+    red: [40, 42, 54] #282a36
+    green: [166, 153, 94] #A6995E
+    yellow: [235,203,139] #EBCB8B
+    blue: [129, 161, 193] #81A1C1
+    magenta: [180, 142, 173] #B48EAD
+    cyan: [0, 194, 192] #00c2c0
+    white: [229, 233, 240] #E5E9F0
+    orange: [115, 153, 99] #739963
   kanagawa:
     bg: [54, 54, 70]
     red: [195, 64, 67]
