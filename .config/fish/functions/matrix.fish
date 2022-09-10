@@ -1,3 +1,3 @@
 function matrix
-    cmatrix -b -u 2
+    cmatrix -b -u 2 -C white
 end
