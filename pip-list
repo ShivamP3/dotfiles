@@ -96,4 +96,5 @@ urllib3==1.26.12
 validate-pyproject==0.10.1
 wcwidth==0.2.5
 webencodings==0.5.1
+youtube-dl==2021.12.17
 zipp==3.8.1
