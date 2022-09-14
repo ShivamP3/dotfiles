@@ -40,7 +40,7 @@ window#waybar.hidden {
 	font-size: 4px;
 	border-radius: 100px;
 	background: #161320;
-        border: 1px solid #ffffff;
+        border: 2px solid #ffffff;
 }
 
 #workspaces button {
