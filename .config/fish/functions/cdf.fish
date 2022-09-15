@@ -1,5 +1,5 @@
 function cdf
-        cd ~/home/shivam/dotfiles
+        cd ~
         clear
         neofetch
 end
