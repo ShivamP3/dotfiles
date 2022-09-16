@@ -73,3 +73,4 @@
 2022-09-14 22:10:37,340 [Dummy-1] INFO: loaded 6 dictionaries in 0.340s
 2022-09-14 22:10:37,340 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-modifiers.py` failed: Unsupported extension: py. Supported extensions: json, rtf
 2022-09-14 22:10:37,340 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-symbols.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-09-15 20:05:44,549 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
