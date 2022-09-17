@@ -74,3 +74,18 @@
 2022-09-14 22:10:37,340 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-modifiers.py` failed: Unsupported extension: py. Supported extensions: json, rtf
 2022-09-14 22:10:37,340 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-symbols.py` failed: Unsupported extension: py. Supported extensions: json, rtf
 2022-09-15 20:05:44,549 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-09-17 15:12:46,604 [MainThread] INFO: setting language to: en_US.UTF-8
+2022-09-17 15:12:46,641 [MainThread] INFO: 38 custom mappings(s)
+2022-09-17 15:12:46,972 [Dummy-1] INFO: set_stroke_filename(/home/shivam/.config/plover/strokes.log)
+2022-09-17 15:12:46,972 [Dummy-1] INFO: loading system: English Stenotype
+2022-09-17 15:12:47,161 [Dummy-1] INFO: setting machine: Gemini PR
+2022-09-17 15:12:47,162 [Dummy-1] INFO: starting `plover_tapey_tape` extension
+2022-09-17 15:12:47,162 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/user.json
+2022-09-17 15:12:47,163 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/movement.json
+2022-09-17 15:12:47,164 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/emily-modifiers.py
+2022-09-17 15:12:47,164 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/emily-symbols.py
+2022-09-17 15:12:47,164 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/commands.json
+2022-09-17 15:12:47,165 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/main.json
+2022-09-17 15:12:47,544 [Dummy-1] INFO: loaded 6 dictionaries in 0.382s
+2022-09-17 15:12:47,544 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-modifiers.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-09-17 15:12:47,544 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-symbols.py` failed: Unsupported extension: py. Supported extensions: json, rtf
