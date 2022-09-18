@@ -55,6 +55,7 @@ SETUVAR _fish_abbr_nf:nvim\x20\x28fzf\x29
 SETUVAR _fish_abbr_nfet:neofetch
 SETUVAR _fish_abbr_pac:pacman
 SETUVAR _fish_abbr_restart:reboot
+SETUVAR _fish_abbr_s:sudo
 SETUVAR _fish_abbr_sleep:systemctl\x20suspend
 SETUVAR _fish_abbr_sysdis:systemctl\x20disable
 SETUVAR _fish_abbr_sysen:systemctl\x20enable
