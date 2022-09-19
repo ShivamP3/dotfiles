@@ -32,7 +32,7 @@
     ### Text ###
 
     # Set font of notifications
-    font = Iosevka 12
+    font = Iosevka
     # Spacing between lines
     line-height = 1
     # Markup parsing
