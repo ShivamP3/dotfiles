@@ -95,6 +95,9 @@ input type:touchpad {
 
 # Enable floating
 for_window [title="Plover"] floating enable
+for_window [title="Anki"] floating enable
+for_window [title="Add"] floating enable
+for_window [title="Statistics"] floating enable
 
 # Enable title bar
 for_window [title="Plover"] border normal
