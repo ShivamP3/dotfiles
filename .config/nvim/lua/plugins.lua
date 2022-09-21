@@ -981,6 +981,11 @@ return require('packer').startup(function(use)
     }
 
     --
+    -- Anki
+    --
+    use { '52617365/nvimanki', requires = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim"}}
+
+    --
     -- Rust
     --
 
