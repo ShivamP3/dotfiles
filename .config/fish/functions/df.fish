@@ -1,5 +1,5 @@
 function df
-        cd /home/shivam/dotfiles
+        cd ~/dotfiles
         clear
         neofetch
 end
