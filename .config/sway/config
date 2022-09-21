@@ -166,9 +166,9 @@ bindsym Print+Control+Alt exec grimshot --notify copy area
 # Control volume, monitor brightness, media players
 #
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym $mod+Control+Up exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym $mod+Control+Up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym $mod+Control+Down exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym $mod+Control+Down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym $mod+3 exec "playerctl play-pause; mpc toggle"
 bindsym $mod+4 exec "playerctl next; mpc next"
