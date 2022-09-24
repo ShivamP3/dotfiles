@@ -63,7 +63,6 @@ pulseaudio-bluetooth
 python-babel
 python-magic
 python-pip
-python2
 rust-analyzer
 sl
 slurp
