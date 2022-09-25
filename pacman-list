@@ -12,7 +12,6 @@ bemenu
 bison
 bluez
 bluez-utils
-boost-libs
 bottom
 brightnessctl
 btop
@@ -31,8 +30,6 @@ fish
 flex
 fzf
 gcc
-gdb
-gdb-common
 git
 github-cli
 gitui
@@ -69,14 +66,11 @@ python-pip
 rust-analyzer
 sl
 slurp
-source-highlight
 sudo
 sway
 swayidle
 swaylock
-tcl
 texinfo
-tk
 tor
 torbrowser-launcher
 ttc-iosevka
