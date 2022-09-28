@@ -64,11 +64,6 @@ SETUVAR _fish_abbr_systat:systemctl\x20status
 SETUVAR _fish_abbr_systl:systemctl
 SETUVAR _fish_abbr_systop:systemctl\x20stop
 SETUVAR _fish_abbr_systrt:systemctl\x20start
-SETUVAR _fish_abbr_t:todo
-SETUVAR _fish_abbr_tree:exa\x20\x2dFT
-SETUVAR _fish_abbr_ts:todo\x20show\x20\x2dTD
-SETUVAR _fish_abbr_tsd:todo\x20show\x20\x2dtDu
-SETUVAR _fish_abbr_tsf:todo\x20show\x20\x2dfuD
 SETUVAR _fish_abbr_update:yay
 SETUVAR _fish_abbr_xbu:x\x20build\x20\x2di\x20\x2d\x2djobs\x208
 SETUVAR _fish_abbr_xch:x\x20check\x20\x2di\x20\x2d\x2djobs\x208
