@@ -49,8 +49,8 @@ SETUVAR _fish_abbr_lt:exa\x20\x2d\x2dlong\x20\x2d\x2dall\x20\x2d\x2dsort\x3dmodi
 SETUVAR _fish_abbr_mkdir:mkdir\x20\x2dp
 SETUVAR _fish_abbr_n:nvim
 SETUVAR _fish_abbr_nc:ncmpcpp
-SETUVAR _fish_abbr_nf:nvim\x20\x28fzf\x29
-SETUVAR _fish_abbr_nfet:neofetch
+SETUVAR _fish_abbr_nfzf:nvim\x20\x28fzf\x29
+SETUVAR _fish_abbr_nf:neofetch
 SETUVAR _fish_abbr_pac:pacman
 SETUVAR _fish_abbr_restart:reboot
 SETUVAR _fish_abbr_s:sudo
