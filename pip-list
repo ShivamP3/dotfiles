@@ -2,7 +2,7 @@ anki==2.1.54
 apipkg==3.0.1
 appdirs==1.4.4
 aqt==2.1.54
-attrs==20.3.0
+attrs==22.1.0
 autocommand==2.2.1
 autopep8==1.6.0
 Babel==2.10.3
@@ -40,7 +40,7 @@ jaraco.context==4.1.2
 jaraco.functools==3.5.2
 jaraco.text==3.9.1
 jellyfish==0.9.0
-Jinja2==3.1.1
+Jinja2==3.1.2
 jsbeautifier==1.14.3
 jsonschema==4.16.0
 lib50==3.0.4
@@ -77,9 +77,9 @@ pyOpenSSL==22.1.0
 pyparsing==3.0.9
 PyQt5==5.15.7
 PyQt5-sip==12.11.0
-PyQt6==6.3.1
+PyQt6==6.4.0
 PyQt6-sip==13.4.0
-PyQt6-WebEngine==6.3.1
+PyQt6-WebEngine==6.4.0
 pyrsistent==0.19.0
 pyserial==3.5
 PySocks==1.7.1
