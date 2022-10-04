@@ -128,6 +128,11 @@ for_window [title="Plover"] width 181 height 148
     # Start your launcher
     bindsym $mod+d exec $menu
 
+    # Switch your window
+    exec_always i3-focus-last server
+    bindsym Alt+Tab exec i3-focus-last switch
+    bindsym Shift+Alt+Tab exec i3-focus-last menu
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
