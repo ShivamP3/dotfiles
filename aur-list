@@ -14,6 +14,7 @@ plover-git
 python-plover_stroke
 python-rtf_tokenize
 python2
+rofi-lbonn-wayland
 sioyek
 snake
 spicetify-cli
