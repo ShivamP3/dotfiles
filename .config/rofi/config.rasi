@@ -3,6 +3,4 @@ configuration {
   combi-modes: [ window, drun, run ];
 }
 
-@theme "monokai"
- 
 /* Insert theme modifications after this */
