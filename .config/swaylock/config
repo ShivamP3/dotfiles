@@ -4,5 +4,5 @@ daemonize
 image=~/dotfiles/wallpapers/arch.jpg
 scaling=fill
 indicator-caps-lock
-indicator-radius=150
+indicator-radius=200
 font=Iosevka
