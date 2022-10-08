@@ -130,7 +130,7 @@ for_window [title="Plover"] width 181 height 148
 
     # Switch your window
     exec_always i3-focus-last server
-    bindsym Alt+Tab exec i3-focus-last switch
+    bindsym $mod+Tab exec i3-focus-last switch
     bindsym Shift+Alt+Tab exec i3-focus-last menu
 
     # Drag floating windows by holding down $mod and left mouse button.
