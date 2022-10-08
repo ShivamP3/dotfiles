@@ -99,12 +99,13 @@ for_window [title="Anki"] floating enable
 for_window [title="Add"] floating enable
 for_window [title="Statistics"] floating enable
 for_window [title="Edit"] floating enable
+for_window [title="CopyQ"] floating enable
 
 # Enable title bar
 for_window [title="Plover"] border normal
 
 # Resize
-for_window [title="Plover"] width 181 height 148
+for_window [title="Plover"] width 200 height 150
 
 ### Key bindings
 #
