@@ -104,9 +104,6 @@ for_window [title="CopyQ"] floating enable
 # Enable title bar
 for_window [title="Plover"] border normal
 
-# Resize
-for_window [title="Plover"] width 200 height 150
-
 ### Key bindings
 #
 # Basics:
