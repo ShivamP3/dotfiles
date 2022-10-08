@@ -1,3 +1,3 @@
 function clock
-    tty-clock -scbt -C 6
+    tty-clock -scbt -C 4
 end
