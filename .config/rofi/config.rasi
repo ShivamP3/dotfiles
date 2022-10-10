@@ -3,4 +3,3 @@ configuration {
   combi-modes: [ window, drun, run ];
 }
 
-/* Insert theme modifications after this */
