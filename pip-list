@@ -31,7 +31,7 @@ gpg==1.18.0
 html5lib==1.1
 icdiff==2.0.5
 idna==3.4
-importlib-metadata==4.9.0
+importlib-metadata==5.0.0
 inflect==6.0.0
 iniconfig==1.1.1
 installer==0.5.1
