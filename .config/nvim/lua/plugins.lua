@@ -1,15 +1,23 @@
 -- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
 
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd(
-    'BufWritePost',
-    { command = 'source <afile> | PackerCompile', group = packer_group, pattern = 'plugins.lua' }
-)
+local packer_bootstrap = ensure_packer()
+
+vim.cmd [[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]]
 
 return require('packer').startup(function(use)
     -- package manager - packer
@@ -24,6 +32,32 @@ return require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require('nvim-treesitter.configs').setup {
+                ensure_installed = {
+                    'bash',
+                    'c',
+                    'cmake',
+                    'cpp',
+                    'css',
+                    'fish',
+                    'gitignore',
+                    'go',
+                    'help',
+                    'html',
+                    -- 'java',
+                    -- 'javascript',
+                    'json',
+                    'latex',
+                    'lua',
+                    'markdown',
+                    'markdown_inline',
+                    'python',
+                    'regex',
+                    'rust',
+                    'toml',
+                    'typescript',
+                    'vim',
+                    'yaml',
+                },
                 rainbow = {
                     enable = true,
                     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
@@ -52,6 +86,12 @@ return require('packer').startup(function(use)
             require('mini.surround').setup()
             -- starting screen
             require('mini.starter').setup()
+            -- auto-pair
+            require('mini.pairs').setup()
+            -- underline words
+            require('mini.cursorword').setup()
+            -- comment
+            require('mini.comment').setup()
         end,
     }
 
@@ -61,30 +101,100 @@ return require('packer').startup(function(use)
     --
     --
 
-    -- ui select
-    use 'stevearc/dressing.nvim'
+    -- Zen mode
+    use {
+        'Pocco81/true-zen.nvim',
+        config = function()
+            require('true-zen').setup {
+                integrations = {
+                    lualine = true,
+                },
+            }
+        end,
+    }
+    use {
+        'folke/twilight.nvim',
+        config = function()
+            require('twilight').setup {}
+        end,
+    }
+
+    -- screensaver
+    use {
+        'folke/drop.nvim',
+        event = 'VimEnter',
+        config = function()
+            require('drop').setup()
+            vim.cmd [[:command DropShow lua require('drop').show()]]
+            vim.cmd [[:command DropHide lua require('drop').hide()]]
+        end,
+    }
+
+    -- pretty stuff
+    use {
+        'folke/noice.nvim',
+        event = 'VimEnter',
+        config = function()
+            require('noice').setup {
+                lsp = {
+                    override = {
+                        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+                        ['vim.lsp.util.stylize_markdown'] = true,
+                        ['cmp.entry.get_documentation'] = true,
+                        ['vim.lsp.handlers["textDocument/signatureHelp"]'] = false,
+                    },
+                },
+                views = {
+                    cmdline_popup = {
+                        position = {
+                            row = 15,
+                            col = '50%',
+                        },
+                        size = {
+                            width = 80,
+                            height = 'auto',
+                        },
+                    },
+                    popupmenu = {
+                        relative = 'editor',
+                        position = {
+                            row = 18,
+                            col = '50%',
+                        },
+                        size = {
+                            width = 80,
+                            height = 10,
+                        },
+                        border = {
+                            style = 'rounded',
+                            padding = { 0, 1 },
+                        },
+                        win_options = {
+                            winhighlight = { Normal = 'Normal', FloatBorder = 'DiagnosticInfo' },
+                        },
+                    },
+                },
+            }
+            require('telescope').load_extension 'noice'
+            require('notify').setup {
+                background_colour = '#1a1b26',
+            }
+        end,
+        requires = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            'MunifTanjim/nui.nvim',
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            'rcarriga/nvim-notify',
+        },
+    }
 
     -- highlight colors
     use {
         'norcalli/nvim-colorizer.lua',
         config = function()
             require('colorizer').setup()
-        end,
-    }
-
-    -- prettier notifications
-    use {
-        'rcarriga/nvim-notify',
-        config = function()
-            vim.notify = require 'notify'
-        end,
-    }
-
-    -- lsp status
-    use {
-        'j-hui/fidget.nvim',
-        config = function()
-            require('fidget').setup {}
         end,
     }
 
@@ -102,81 +212,6 @@ return require('packer').startup(function(use)
                 dynamicRegistration = false,
                 lineFoldingOnly = true,
             }
-        end,
-    }
-
-    -- fancy wildmenu
-    use {
-        'gelguy/wilder.nvim',
-        config = function()
-            local wilder = require 'wilder'
-            wilder.setup { modes = { ':', '/', '?' } }
-
-            -- fuzzy finding
-            wilder.set_option('pipeline', {
-                wilder.branch(
-                    wilder.cmdline_pipeline {
-                        -- sets the language to use, 'vim' and 'python' are supported
-                        language = 'python',
-                        -- 0 turns off fuzzy matching
-                        -- 1 turns on fuzzy matching
-                        -- 2 partial fuzzy matching (match does not have to begin with the same first letter)
-                        fuzzy = 1,
-                    },
-                    wilder.python_search_pipeline {
-                        -- can be set to wilder#python_fuzzy_delimiter_pattern() for stricter fuzzy matching
-                        pattern = wilder.python_fuzzy_pattern(),
-                        -- omit to get results in the order they appear in the buffer
-                        sorter = wilder.python_difflib_sorter(),
-                        -- can be set to 're2' for performance, requires pyre2 to be installed
-                        -- see :h wilder#python_search() for more details
-                        engine = 're',
-                    }
-                ),
-            })
-
-            -- file filnding
-            wilder.set_option('pipeline', {
-                wilder.branch(
-                    wilder.python_file_finder_pipeline {
-                        -- to use ripgrep : {'rg', '--files'}
-                        -- to use fd      : {'fd', '-tf'}
-                        file_command = { 'find', '.', '-type', 'f', '-printf', '%P\n' },
-                        -- to use fd      : {'fd', '-td'}
-                        dir_command = { 'find', '.', '-type', 'd', '-printf', '%P\n' },
-                        -- use {'cpsm_filter'} for performance, requires cpsm vim plugin
-                        -- found at https://github.com/nixprime/cpsm
-                        filters = { 'fuzzy_filter', 'difflib_sorter' },
-                    },
-                    wilder.cmdline_pipeline(),
-                    wilder.python_search_pipeline()
-                ),
-            })
-
-            -- fancy popmenu
-            wilder.set_option(
-                'renderer',
-                wilder.popupmenu_renderer(wilder.popupmenu_border_theme {
-                    highlights = {
-                        border = 'Normal', -- highlight to use for the border
-                    },
-                    -- 'single', 'double', 'rounded' or 'solid'
-                    -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
-                    border = 'rounded',
-                    left = {
-                        ' ',
-                        wilder.popupmenu_devicons(),
-                        wilder.popupmenu_buffer_flags {
-                            flags = ' a + ',
-                            icons = { ['+'] = '', a = '', h = '' },
-                        },
-                    },
-                    right = {
-                        ' ',
-                        wilder.popupmenu_scrollbar(),
-                    },
-                })
-            )
         end,
     }
 
@@ -212,10 +247,25 @@ return require('packer').startup(function(use)
             -- vim.opt.listchars:append 'space:⋅'
             vim.opt.listchars:append 'eol:↴'
 
+            vim.cmd [[highlight IndentBlanklineContextChar guifg=#BF616A gui=nocombine]]
+            vim.cmd [[highlight IndentBlanklineIndent1 guifg=#5E81AC gui=nocombine]]
+            vim.cmd [[highlight IndentBlanklineIndent2 guifg=#81A1C1 gui=nocombine]]
+            vim.cmd [[highlight IndentBlanklineIndent3 guifg=#88C0D0 gui=nocombine]]
+            vim.cmd [[highlight IndentBlanklineIndent4 guifg=#8FBCBB gui=nocombine]]
+            vim.cmd [[highlight IndentBlanklineIndent5 guifg=#A3BE8C gui=nocombine]]
+
             require('indent_blankline').setup {
+                use_treesitter_scope = true,
                 -- space_char_blankline = ' ',
                 show_current_context = true,
                 show_current_context_start = true,
+                char_highlight_list = {
+                    'IndentBlanklineIndent1',
+                    'IndentBlanklineIndent2',
+                    'IndentBlanklineIndent3',
+                    'IndentBlanklineIndent4',
+                    'IndentBlanklineIndent5',
+                },
             }
         end,
     }
@@ -235,6 +285,7 @@ return require('packer').startup(function(use)
     use {
         'simrat39/symbols-outline.nvim',
         config = function()
+            require('symbols-outline').setup()
             vim.g.symbols_outline = {
                 width = 50,
             }
@@ -246,19 +297,20 @@ return require('packer').startup(function(use)
     use {
         'numToStr/FTerm.nvim',
         config = function()
-            vim.keymap.set('n', '<A-i>', function()
-                require('FTerm').toggle()
-            end)
+            vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+            vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
         end,
     }
 
-    -- CHAD filesystem
+    -- filesystem
     use {
-        'ms-jpq/chadtree',
-        branch = 'chad',
-        run = 'python3 -m chadtree deps',
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons',
+        },
         config = function()
-            vim.keymap.set('n', '<Leader>v', '<cmd>CHADopen<CR>', { silent = true })
+            require('nvim-tree').setup()
+            vim.keymap.set('n', '<Leader>v', '<cmd>NvimTreeToggle<CR>', { silent = true })
         end,
     }
 
@@ -266,16 +318,6 @@ return require('packer').startup(function(use)
     -- git
     --
 
-    -- use {
-    -- 	'tanvirtin/vgit.nvim',
-    -- 	event = 'BufWinEnter',
-    -- 	requires = {
-    -- 		'nvim-lua/plenary.nvim',
-    -- 	},
-    -- 	config = function()
-    -- 		require('vgit').setup()
-    -- 	end,
-    -- }
     use {
         'lewis6991/gitsigns.nvim',
         requires = {
@@ -286,10 +328,6 @@ return require('packer').startup(function(use)
         end,
         -- tag = 'release' -- To use the latest release
     }
-    use {
-        'sindrets/diffview.nvim',
-        requires = 'nvim-lua/plenary.nvim',
-    }
 
     --
     -- tab/status lines
@@ -297,28 +335,32 @@ return require('packer').startup(function(use)
     -- statusline
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true },
         config = function()
             require('lualine').setup {
                 options = {
                     globalstatus = true,
+                    theme = 'nord',
                 },
             }
         end,
     }
-    -- use {
-    -- 	'feline-nvim/feline.nvim',
-    -- 	config = function()
-    -- 		require('feline').setup {}
-    -- 	end,
-    -- }
 
     -- tabline
     use {
         'akinsho/bufferline.nvim',
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = 'nvim-tree/nvim-web-devicons',
         config = function()
-            require('bufferline').setup {}
+            require('bufferline').setup {
+                options = {
+                    separator_style = 'thick',
+                },
+                highlights = require('nord').bufferline.highlights {
+                    underline = true,
+                    italic = true,
+                    bold = true,
+                },
+            }
 
             -- keybinds
             vim.keymap.set('n', '<leader>]', '<cmd>BufferLineCycleNext<CR>', { silent = true })
@@ -337,15 +379,13 @@ return require('packer').startup(function(use)
     use 'folke/lsp-colors.nvim'
 
     -- icons
-    use 'ryanoasis/vim-devicons'
-    use 'adelarsq/vim-devicons-emoji'
-    use 'adelarsq/vim-emoji-icon-theme'
-    use 'kyazdani42/nvim-web-devicons'
+    use 'nvim-tree/nvim-web-devicons'
 
     -- colorschemes
     -- use 'RRethy/nvim-base16'
+    use 'shaunsingh/nord.nvim'
     -- use 'folke/tokyonight.nvim'
-    use 'rebelot/kanagawa.nvim'
+    -- use 'rebelot/kanagawa.nvim'
     -- use 'catppuccin/nvim'
 
     --
@@ -355,16 +395,28 @@ return require('packer').startup(function(use)
     --
     -- smooth scrolling
     use {
-        'declancm/cinnamon.nvim',
+        'karb94/neoscroll.nvim',
         config = function()
-            require('cinnamon').setup()
+            require('neoscroll').setup()
+            local t = {}
+            -- Syntax: t[keys] = {function, {function arguments}}
+            t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '80' } }
+            t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '80' } }
+            t['<C-b>'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '250' } }
+            t['<C-f>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '250' } }
+            t['<C-y>'] = { 'scroll', { '-0.10', 'false', '80' } }
+            t['<C-e>'] = { 'scroll', { '0.10', 'false', '80' } }
+            t['zt'] = { 'zt', { '150' } }
+            t['zz'] = { 'zz', { '150' } }
+            t['zb'] = { 'zb', { '150' } }
+
+            require('neoscroll.config').set_mappings(t)
         end,
     }
 
     -- transparent neovim
     use {
         'xiyaowong/nvim-transparent',
-        disable = true,
         config = function()
             require('transparent').setup {
                 enable = true,
@@ -404,9 +456,6 @@ return require('packer').startup(function(use)
     -- highlight range in command
     use 'winston0410/cmd-parser.nvim'
 
-    -- underline words/lines on cursor
-    use 'yamatsum/nvim-cursorline'
-
     --
     --
     -- Editor
@@ -416,7 +465,7 @@ return require('packer').startup(function(use)
     use 'airblade/vim-rooter'
 
     -- autosave
-    use 'Pocco81/AutoSave.nvim'
+    -- use 'Pocco81/auto-save.nvim'
 
     -- tidy whitespace
     use {
@@ -431,89 +480,20 @@ return require('packer').startup(function(use)
             require('nvim-treesitter.configs').setup {
                 matchup = {
                     enable = true, -- mandatory, false will disable the whole extension
-                    disable = { 'c', 'ruby' }, -- optional, list of language that will be disabled
-                    -- [options]
                 },
             }
         end,
     }
 
-    -- comment
-    use {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end,
-    }
-
-    -- auto-pair
-    use 'jiangmiao/auto-pairs'
-
-    -- browser markdown preview
-    use 'davidgranstrom/nvim-markdown-preview'
-
-    -- latex preview
-    use {
-        'frabjous/knap',
-        config = function()
-            -- set shorter name for keymap function
-            local kmap = vim.keymap.set
-
-            -- F5 processes the document once, and refreshes the view
-            kmap('i', '<F5>', function()
-                require('knap').process_once()
-            end)
-            kmap('v', '<F5>', function()
-                require('knap').process_once()
-            end)
-            kmap('n', '<F5>', function()
-                require('knap').process_once()
-            end)
-
-            -- F6 closes the viewer application, and allows settings to be reset
-            kmap('i', '<F6>', function()
-                require('knap').close_viewer()
-            end)
-            kmap('v', '<F6>', function()
-                require('knap').close_viewer()
-            end)
-            kmap('n', '<F6>', function()
-                require('knap').close_viewer()
-            end)
-
-            -- F7 toggles the auto-processing on and off
-            kmap('i', '<F7>', function()
-                require('knap').toggle_autopreviewing()
-            end)
-            kmap('v', '<F7>', function()
-                require('knap').toggle_autopreviewing()
-            end)
-            kmap('n', '<F7>', function()
-                require('knap').toggle_autopreviewing()
-            end)
-
-            -- F8 invokes a SyncTeX forward search, or similar, where appropriate
-            kmap('i', '<F8>', function()
-                require('knap').forward_jump()
-            end)
-            kmap('v', '<F8>', function()
-                require('knap').forward_jump()
-            end)
-            kmap('n', '<F8>', function()
-                require('knap').forward_jump()
-            end)
-        end,
-    }
-
-    -- latex editing
+    -- latex editing and preview
     use {
         'lervag/vimtex',
         config = function()
-            vim.api.nvim_set_var('tex_flavor', 'latex')
-            vim.api.nvim_set_var('vimtex_view_method', 'sioyek')
-            vim.api.nvim_set_var('vimtex_quickfix_mode', 0)
-            vim.o.conceallevel = 1
-            vim.api.nvim_set_var('tex_conceal', 'abdmg')
+            vim.g.tex_flavor = 'latex'
+            vim.g.vimtex_view_method = 'sioyek'
+            vim.g.vimtex_quickfix_mode = 0
+            vim.g.conceallevel = 1
+            vim.g.tex_conceal = 'abdmg'
         end,
     }
 
@@ -593,8 +573,22 @@ return require('packer').startup(function(use)
         config = function()
             -- keybind
             vim.keymap.set('n', '<Leader>f', [[<cmd>Format<CR>]], { silent = true })
+            local util = require 'formatter.util'
             require('formatter').setup {
                 filetype = {
+                    css = {
+                        function()
+                            return {
+                                exe = 'prettier',
+                                args = {
+                                    '--stdin-filepath',
+                                    util.escape_path(util.get_current_buffer_file_path()),
+                                },
+                                stdin = true,
+                                try_node_modules = true,
+                            }
+                        end,
+                    },
                     lua = {
                         function()
                             return {
@@ -604,6 +598,15 @@ return require('packer').startup(function(use)
                                     '-',
                                 },
                                 stdin = true,
+                            }
+                        end,
+                    },
+                    python = {
+                        function()
+                            return {
+                                exe = 'autopep8',
+                                args = { '-' },
+                                stdin = 1,
                             }
                         end,
                     },
@@ -650,148 +653,6 @@ return require('packer').startup(function(use)
         end,
     }
 
-    -- debugging
-    use {
-        'mfussenegger/nvim-dap',
-        requires = {
-            'rcarriga/nvim-dap-ui',
-            'Pocco81/DAPInstall.nvim',
-            'theHamsta/nvim-dap-virtual-text',
-            'nvim-telescope/telescope-dap.nvim',
-            'theHamsta/nvim-dap-virtual-text',
-        },
-        config = function()
-            require('telescope').load_extension 'dap'
-
-            local dap = require 'dap'
-
-            dap.adapters.lldb = {
-                type = 'executable',
-                attach = { pidProperty = 'pid', pidSelect = 'ask' },
-                command = 'lldb-vscode',
-                name = 'lldb',
-                env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = 'YES' },
-            }
-
-            dap.configurations.cpp = {
-                {
-                    name = 'Launch',
-                    type = 'lldb',
-                    request = 'launch',
-                    program = function()
-                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-                    end,
-                    cwd = '${workspaceFolder}',
-                    stopOnEntry = false,
-                    args = {},
-
-                    -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-                    --
-                    --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-                    --
-                    -- Otherwise you might get the following error:
-                    --
-                    --    Error on launch: Failed to attach to the target process
-                    --
-                    -- But you should be aware of the implications:
-                    -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-                    runInTerminal = false,
-
-                    -- 💀
-                    -- If you use `runInTerminal = true` and resize the terminal window,
-                    -- lldb-vscode will receive a `SIGWINCH` signal which can cause problems
-                    -- To avoid that uncomment the following option
-                    -- See https://github.com/mfussenegger/nvim-dap/issues/236#issuecomment-1066306073
-                    postRunCommands = { 'process handle -p true -s false -n false SIGWINCH' },
-                },
-            }
-
-            dap.configurations.c = dap.configurations.cpp
-            dap.configurations.rust = dap.configurations.cpp
-
-            vim.keymap.set('n', '<F4>', function()
-                require('dapui').toggle()
-            end, { silent = true })
-            vim.keymap.set('n', '<F5>', function()
-                require('dap').toggle_breakpoint()
-            end, { silent = true })
-            vim.keymap.set('n', '<F9>', function()
-                require('dap').continue()
-            end, { silent = true })
-
-            vim.keymap.set('n', '<F1>', function()
-                require('dap').step_over()
-            end, { silent = true })
-            vim.keymap.set('n', '<F2>', function()
-                require('dap').step_into()
-            end, { silent = true })
-            vim.keymap.set('n', '<F3>', function()
-                require('dap').step_out()
-            end, { silent = true })
-
-            vim.keymap.set('n', '<Leader>dsc', function()
-                require('dap').continue()
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>dsv', function()
-                require('dap').step_over()
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>dsi', function()
-                require('dap').step_into()
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>dso', function()
-                require('dap').step_out()
-            end, { silent = true })
-
-            vim.keymap.set('n', '<Leader>dhh', function()
-                require('dap.ui.variables').hover()
-            end, { silent = true })
-            vim.keymap.set('v', '<Leader>dhv', function()
-                require('dap.ui.variables').visual_hover()
-            end, { silent = true })
-
-            vim.keymap.set('n', '<Leader>duh', function()
-                require('dap.ui.widgets').hover()
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>duf', function()
-                local widgets = require 'dap.ui.widgets'
-                widgets.centered_float(widgets.scopes)
-            end, { silent = true })
-
-            vim.keymap.set('n', '<Leader>dro', function()
-                require('dap').repl.open()
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>drl', function()
-                require('dap').repl.run_last()
-            end, { silent = true })
-
-            vim.keymap.set('n', '<Leader>dbc', function()
-                require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>dbm', function()
-                require('dap').set_breakpoint { nil, nil, vim.fn.input 'Log point message: ' }
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>dbt', function()
-                require('dap').toggle_breakpoint()
-            end, { silent = true })
-
-            vim.keymap.set('n', '<Leader>dc', function()
-                require('dap.ui.variables').scopes()
-            end, { silent = true })
-            vim.keymap.set('n', '<Leader>di', function()
-                require('dapui').toggle()
-            end, { silent = true })
-        end,
-    }
-
-    use {
-        'nvim-neotest/neotest',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'nvim-treesitter/nvim-treesitter',
-            'antoinemadec/FixCursorHold.nvim',
-        },
-    }
-
     --
     --
     -- lsp/language
@@ -823,82 +684,74 @@ return require('packer').startup(function(use)
         end,
     }
 
-    -- show function signature
-    use {
-        'ray-x/lsp_signature.nvim',
-        config = function()
-            require('lsp_signature').setup()
-        end,
-    }
-
     -- fish editing
     use 'dag/vim-fish'
 
     -- install lsp servers
     use {
-        'williamboman/nvim-lsp-installer',
-        requires = { 'neovim/nvim-lspconfig' },
+        'williamboman/mason.nvim',
+        requires = {
+            'neovim/nvim-lspconfig',
+            'williamboman/mason-lspconfig.nvim',
+            'WhoIsSethDaniel/mason-tool-installer.nvim',
+        },
         config = function()
-            require('nvim-lsp-installer').setup {}
-            local lsp_installer = require 'nvim-lsp-installer'
-            local servers = {
-                'clangd',
-                'cssls',
-                'grammarly',
-                'html',
-                'ltex',
-                'pyright',
-                'rust_analyzer',
-                'sumneko_lua',
-                'tailwindcss',
+            require('mason').setup {
+                providers = { 'mason.providers.client' },
             }
-
-            -- install servers
-            for _, name in pairs(servers) do
-                local server_is_found, server = lsp_installer.get_server(name)
-                if server_is_found then
-                    if not server:is_installed() then
-                        print('Installing ' .. name)
-                        server:install()
-                        print('Installed ' .. name)
-                    end
-                end
-            end
-
-            local lspconfig = require 'lspconfig'
-            lspconfig.clangd.setup {}
-            lspconfig.cssls.setup {}
-            lspconfig.grammarly.setup {}
-            lspconfig.html.setup {}
-            lspconfig.ltex.setup {}
-            lspconfig.pyright.setup {}
-            lspconfig.sumneko_lua.setup {}
-            lspconfig.tailwindcss.setup {}
-            lspconfig.rust_analyzer.setup {
-                on_init = function(client)
-                    local path = client.workspace_folders[1].name
-
-                    if path == os.getenv 'HOME' .. 'rust' then
-                        local rust_analyzer = client.config.settings['rust-analyzer']
-                        rust_analyzer.checkOnSave.overrideCommand = { 'x', 'check', '--json-output' }
-                        rust_analyzer.rustfmt.overrideCommand =
-                            { './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt', '--edition=2021' }
-                        rust_analyzer.procMacro.enable = true
-                        rust_analyzer.cargo.buildScripts.enable = true
-                        rust_analyzer.cargo.buildScripts.overrideCommand = { 'x', 'check', '--json-output' }
-                        rust_analyzer.rustc.source = './Cargo.toml'
-                    end
-
-                    client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
-                    return true
-                end,
-                settings = {
-                    checkOnSave = { overrideCommand = {} },
-                    rustfmt = { overrideCommand = {} },
-                    procMacro = { enable = false },
-                    cargo = { buildScripts = { enable = false, overrideCommand = {} } },
-                    rustc = { source = '' },
+            require('mason-tool-installer').setup {
+                ensure_installed = {
+                    'prettier',
+                    'stylua',
+                    'autopep8',
                 },
+            }
+            require('mason-lspconfig').setup {
+                ensure_installed = {
+                    'clangd',
+                    'cssls',
+                    'grammarly',
+                    'html',
+                    'jsonls',
+                    'ltex',
+                    'pyright',
+                    'rust_analyzer',
+                    'sumneko_lua',
+                    'texlab',
+                },
+                automatic_installation = true,
+            }
+            require('mason-lspconfig').setup_handlers {
+                function(server_name)
+                    require('lspconfig')[server_name].setup {}
+                end,
+                ['sumneko_lua'] = function()
+                    require('lspconfig').sumneko_lua.setup {
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    -- Get the language server to recognize the `vim` global
+                                    globals = { 'vim' },
+                                },
+                            },
+                        },
+                    }
+                end,
+            }
+        end,
+    }
+
+    use {
+        'klen/nvim-config-local',
+        config = function()
+            require('config-local').setup {
+                -- Default configuration (optional)
+                config_files = { '.vimrc.lua', '.vimrc' }, -- Config file patterns to load (lua supported)
+                hashfile = vim.fn.stdpath 'data' .. '/config-local', -- Where the plugin keeps files data
+                autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
+                commands_create = true, -- Create commands (ConfigSource, ConfigEdit, ConfigTrust, ConfigIgnore)
+                silent = false, -- Disable plugin messages (Config loaded/ignored)
+                lookup_parents = false, -- Lookup config files in parent directories
             }
         end,
     }
@@ -932,30 +785,98 @@ return require('packer').startup(function(use)
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-calc',
+            'hrsh7th/cmp-nvim-lsp-signature-help',
+            'hrsh7th/cmp-cmdline',
+            'dmitmel/cmp-cmdline-history',
             -- luasnip
             'saadparwaiz1/cmp_luasnip',
             'L3MON4D3/LuaSnip',
-            -- ultisnips
-            -- 'SirVer/ultisnips',
-            -- 'quangnguyen30192/cmp-nvim-ultisnips',
         },
         config = function()
+            vim.o.completeopt = 'menuone,noselect'
+            local has_words_before = function()
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                return col ~= 0
+                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
+            end
+
             local cmp = require 'cmp'
+            local luasnip = require 'luasnip'
+
+            require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/lua/snippets' }
+            luasnip.config.set_config {
+                enable_autosnippets = true,
+                store_selection_keys = '<Tab>',
+            }
+
+            local cmp_kinds = {
+                Text = '  ',
+                Method = '  ',
+                Function = '  ',
+                Constructor = '  ',
+                Field = '  ',
+                Variable = '  ',
+                Class = '  ',
+                Interface = '  ',
+                Module = '  ',
+                Property = '  ',
+                Unit = '  ',
+                Value = '  ',
+                Enum = '  ',
+                Keyword = '  ',
+                Snippet = '  ',
+                Color = '  ',
+                File = '  ',
+                Reference = '  ',
+                Folder = '  ',
+                EnumMember = '  ',
+                Constant = '  ',
+                Struct = '  ',
+                Event = '  ',
+                Operator = '  ',
+                TypeParameter = '  ',
+            }
             cmp.setup {
                 snippet = {
                     expand = function(args)
                         -- luasnip
                         require('luasnip').lsp_expand(args.body)
-                        -- ultisnips
-                        -- vim.fn['UltiSnips#Anon'](args.body)
+                    end,
+                },
+                completion = {
+                    completeopt = 'menu,menuone,noinsert',
+                },
+                formatting = {
+                    format = function(_, vim_item)
+                        vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+                        return vim_item
                     end,
                 },
                 mapping = {
                     ['<C-p>'] = cmp.mapping.select_prev_item(),
                     ['<C-n>'] = cmp.mapping.select_next_item(),
                     -- Add tab support
-                    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-                    ['<Tab>'] = cmp.mapping.select_next_item(),
+                    ['<Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        elseif has_words_before() then
+                            cmp.complete()
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
+
+                    ['<S-Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
                     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
@@ -965,25 +886,30 @@ return require('packer').startup(function(use)
                         select = true,
                     },
                 },
-
                 -- Installed sources
                 sources = {
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },
                     { name = 'luasnip' },
                     { name = 'path' },
-                    { name = 'buffer' },
+                    -- { name = 'buffer' },
                     { name = 'calc' },
                     { name = 'crates' },
+                    { name = 'nvim_lsp_signature_help' },
                 },
             }
+
+            cmp.setup.cmdline(':', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources {
+                    { name = 'noice_popupmenu' },
+                    { name = 'path' },
+                    { name = 'cmdline' },
+                    { name = 'cmdline_history' },
+                },
+            })
         end,
     }
-
-    --
-    -- Anki
-    --
-    use { '52617365/nvimanki', requires = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim"}}
 
     --
     -- Rust
@@ -1027,16 +953,17 @@ return require('packer').startup(function(use)
                     -- these override the defaults set by rust-tools.nvim
                     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
                     server = {
-                        -- on_attach is a callback called when the language server attachs to the buffer
-                        -- on_attach = on_attach,
+                        standalone = true,
                         settings = {
-                            -- to enable rust-analyzer settings visit:
-                            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
                             ['rust-analyzer'] = {
                                 -- enable clippy on save
                                 checkOnSave = {
                                     command = 'clippy',
                                 },
+
+                                -- linkedProjects = {
+                                --     [[{"sysroot_src": "/home/rejyr/.rustup/toolchains/1.41.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"}]],
+                                -- },
                             },
                         },
                     },
@@ -1044,4 +971,8 @@ return require('packer').startup(function(use)
             }
         end,
     }
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)

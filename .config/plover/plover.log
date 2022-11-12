@@ -119,3 +119,25 @@
 2022-10-08 09:15:16,978 [Dummy-1] INFO: loaded 6 dictionaries in 0.253s
 2022-10-08 09:15:16,979 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-modifiers.py` failed: Unsupported extension: py. Supported extensions: json, rtf
 2022-10-08 09:15:16,979 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-symbols.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-11-02 21:16:57,829 [MainThread] INFO: setting language to: en_US.UTF-8
+2022-11-02 21:16:57,892 [MainThread] INFO: 38 custom mappings(s)
+2022-11-02 21:16:58,425 [Dummy-1] INFO: set_stroke_filename(/home/shivam/.config/plover/strokes.log)
+2022-11-02 21:16:58,425 [Dummy-1] INFO: loading system: English Stenotype
+2022-11-02 21:16:58,577 [Dummy-1] INFO: setting machine: Gemini PR
+2022-11-02 21:16:58,578 [Dummy-1] INFO: starting `plover_tapey_tape` extension
+2022-11-02 21:16:58,578 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/user.json
+2022-11-02 21:16:58,579 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/movement.json
+2022-11-02 21:16:58,579 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/emily-modifiers.py
+2022-11-02 21:16:58,579 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/emily-symbols.py
+2022-11-02 21:16:58,580 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/commands.json
+2022-11-02 21:16:58,580 [Dummy-1] INFO: loading dictionary: /home/shivam/dotfiles/.config/plover/main.json
+2022-11-02 21:16:58,903 [Dummy-1] INFO: loaded 6 dictionaries in 0.325s
+2022-11-02 21:16:58,903 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-modifiers.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-11-02 21:16:58,904 [Dummy-1] ERROR: loading dictionary `~/dotfiles/.config/plover/emily-symbols.py` failed: Unsupported extension: py. Supported extensions: json, rtf
+2022-11-02 21:17:04,589 [Dummy-1] INFO: setting machine: Gemini PR
+2022-11-02 21:17:04,590 [Dummy-1] INFO: starting `plover_tapey_tape` extension
+2022-11-02 21:17:04,590 [Dummy-1] INFO: loaded 6 dictionaries in 0.000s
+2022-11-02 21:17:09,793 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-11-02 21:17:10,772 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-11-02 21:17:13,553 [MainThread] WARNING: Qt: Wayland does not support QWindow::requestActivate()
+2022-11-05 14:49:47,199 [Dummy-11] WARNING: Qt: The Wayland connection broke. Did the Wayland compositor die?

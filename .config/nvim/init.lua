@@ -1,9 +1,12 @@
 --
 -- Plugins
 --
-require('plugins')
+require 'plugins'
 
--- Sav undo history
+-- termgui colors
+vim.opt.termguicolors = true
+
+-- Save undo history
 vim.o.undofile = true
 
 -- Line Numbers
@@ -23,8 +26,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- color setup
-vim.cmd [[colorscheme kanagawa]]
-vim.cmd [[set background=dark]]
+vim.cmd 'colorscheme nord'
+vim.cmd 'set background=dark'
 --
 -- LSP/Rust setup
 --
@@ -47,4 +50,10 @@ vim.wo.signcolumn = 'yes'
 -- 300ms of no cursor movement to trigger CursorHold
 vim.o.updatetime = 300
 -- Show diagnostic popup on cursor hover
-vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })]]
+local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+   vim.diagnostic.open_float(nil, { focusable = false })
+  end,
+  group = diag_float_grp,
+})

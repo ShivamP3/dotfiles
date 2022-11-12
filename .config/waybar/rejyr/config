@@ -1,3 +1,21 @@
+
+
+// ---Separators---
+// points to (left/right)
+// vim command: `:100,$s/<current>/<new>/g`
+// use <C-v>, type `u` and unicode value
+// --Arrow--
+// left:  EOB2
+// right:  E0B0
+// --Bubble--
+// left:  EOB6
+// right:  EOB4
+// --Slant--
+// left:  E0BA
+// upper_left:  E0BE
+// right:  E0B8
+// upper_right:  E0BC
+
 {
 	"layer": "top",
         "position": "bottom", // Waybar position (top|bottom|left|right)
@@ -81,9 +99,9 @@
 	"network": {
                 "format": "⚠ Disabled",
                 "format-wifi": " {essid}",
-                "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+                "format-ethernet": " Ethernet",
                 "format-disconnected": "⚠ Disconnected",
-                "on-click": "alacritty -e nmcli",
+                "format-alt": "{ifname}: {ipaddr}/{cidr}",
 		"tooltip": false,
 	},
 	"backlight": {
@@ -121,34 +139,23 @@
             "format-alt": " {:%A %B %d %Y}",
             "tooltip-format": "{:%A %B %d %Y}",
         },
-        // "clock": {
-        //     "tooltip-format": "{:%A %B %d %Y | %H:%M}",
-        //     // "format": " {:%a %d %b  %I:%M %p}",	//12 hour format
-        //     // "format": " {:%a %d %b  %H:%M}",	//24 hour format
-        //     "format": " {:%H:%M  %m-%d-%Y}",	//24 hour format
-        //     "format-alt": " {:%H:%M:%S  %m-%d-%Y}",	//24 hour format
-        //     // "format-alt": " {:%m-%d-%Y  %H:%M:%S}",
-        //     // "timezones": [ "Kolkata" ],
-        //     // "max-length": 200
-        //     "interval": 1
-        // },
         "cpu": {
             "interval": 15,
             "format": " {usage}%",
             "max-length": 10,
-            "on-click": "alacritty -e btop",
+            "on-click": "alacritty -e btm",
         },
         "memory": {
             "interval": 30,
             "format": " {}%",
             "max-length": 10,
-            "on-click": "alacritty -e btop",
+            "on-click": "alacritty -e btm",
         },
         "disk": {
             "interval": 5,
             "format": "  {percentage_used:2}%",
             "path": "/",
-            "on-click": "alacritty -e btop",
+            "on-click": "alacritty -e btm",
         },
         "temperature": {
             // "thermal-zone": 2,
@@ -156,7 +163,7 @@
             "critical-threshold": 80,
             // "format-critical": "{temperatureC}°C ",
             "format": "{temperatureC}°C ",
-            "on-click": "alacritty -e btop",
+            "on-click": "alacritty -e btm",
         },
         "custom/weather":{
             "format": "{}",
@@ -184,65 +191,65 @@
             "tooltip": false,
         },
         "custom/rarrow1":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/rarrow2":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/rarrow3":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/rarrow4":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/rarrow5":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/rarrow6":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/rarrow7":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
 
         "custom/clarrow":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/crarrow":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
 
         "custom/larrow6":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/larrow5":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/larrow4":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/larrow3":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/larrow2":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
         "custom/larrow1":{
-            "format": "",
+            "format": "",
             "tooltip": false,
         },
 }
