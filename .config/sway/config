@@ -40,10 +40,7 @@ exec ~/.config/sway/attach-zellij
 workspace 2
 exec $browser
 
-workspace 3
-exec ~/.config/sway/attach-zellij
-
-workspace 4 
+workspace 3 
 exec $browser
 
 # Gaps

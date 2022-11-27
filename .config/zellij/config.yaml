@@ -636,7 +636,7 @@ plugins:
 # Choose the theme that is specified in the themes section.
 # For some examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
 # Default: default
-theme: nord
+theme: kanagawa
 themes:
   nord:
     fg: [216, 222, 233] #D8DEE9
