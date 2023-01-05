@@ -388,11 +388,11 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
 
     -- colorschemes
-    -- use 'RRethy/nvim-base16'
+    use 'RRethy/nvim-base16'
     use 'shaunsingh/nord.nvim'
-    -- use 'folke/tokyonight.nvim'
-    -- use 'rebelot/kanagawa.nvim'
-    -- use 'catppuccin/nvim'
+    use 'folke/tokyonight.nvim'
+    use 'rebelot/kanagawa.nvim'
+    use 'catppuccin/nvim'
 
     --
     --
