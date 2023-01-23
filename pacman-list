@@ -15,9 +15,11 @@ bluez-utils
 bottom
 brightnessctl
 btop
+cmake
 cmatrix
 copyq
 cowsay
+debugedit
 dhcpcd
 dialog
 discord
@@ -40,6 +42,7 @@ grub
 ifplugd
 imagemagick
 jq
+libappindicator-gtk2
 libtool
 linux
 linux-firmware
@@ -64,6 +67,8 @@ pulseaudio-bluetooth
 python-babel
 python-magic
 python-pip
+qt5-tools
+quazip-qt5
 rust-analyzer
 sl
 slurp

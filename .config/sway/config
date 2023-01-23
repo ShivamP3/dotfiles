@@ -48,6 +48,7 @@ gaps inner 10
 gaps outer 5
 
 # disable window titlebar
+default_border pixel 2
 client.focused "#00c2c0" "#00c2c0" "#000000" "#00c2c0"
 client.unfocused "#282a36" "#282a36" "#f5dbef" "#282a36"
 
@@ -296,8 +297,8 @@ bindsym $mod+2 exec "playerctl previous; mpc prev"
     
     # Multiple scratchpads
     bindsym $mod+d [class="discord"] scratchpad show
-    bindsym $mod+t [title="Tasks"] scratchpad show
-    bindsym $mod+z [title="hidden tabs"] scratchpad show
+    bindsym $mod+x [title="Omnifood"] scratchpad show
+    bindsym $mod+z [title="pdf"] scratchpad show
 #
 # Resizing containers:
 #
